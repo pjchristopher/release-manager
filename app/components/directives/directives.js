@@ -18,3 +18,4 @@ releaseManagerApp.directive('regions', function(){
         templateUrl: 'components/directives/regions.html'
     }
 });
+
