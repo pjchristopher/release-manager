@@ -1,0 +1,24 @@
+.headerText {
+    text-align: center;
+    background: #00529B;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 500;
+    padding: 8px 0 8px 0;
+}
+
+.footerText {
+    text-align: center;
+    background: #00529B;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 0 8px 0;
+}
+
+input[type="button"] {
+    background-color:#00529B;
+    color:#ffffff;
+    border: none;
+    outline:none;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="releaseManagerApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Release Manager</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/master.css"/>
+</head>
+<body ng-controller="releaseManagerLoginController">
+
+<div ng-include="'header.html'"></div>
+
+    <div style="float: right">
+        <a href="" ng-click="home()"><img src="assets/img/home.png"></a>
+    </div>
+
+    <div>
+        <conway-login ng-hide="loggedIn"></conway-login>
+        <conway-region-selection ng-show="loggedIn"></conway-region-selection>
+    </div>
+<div ng-include="'footer.html'" /></div>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="app.js"></script>
+<script src="components/controllers/controllers.js"></script>
+<script src="components/directives/directives.js"></script>
+</body>
+</html>

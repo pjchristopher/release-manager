@@ -1,0 +1,29 @@
+<div>
+    <form name="loginForm" novalidate>
+        <table>
+            <tr>
+                <td>
+                    <h4>Please login with your CVS account</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Username <input type="text" name="username" ng-model="username" ng-pattern="/^[a-zA-Z&_./]*$/" ng-maxlength="20" tabindex="1" required autofocus/>
+                    <span style="color: red" ng-show="loginForm.username.$error.pattern">Not a valid Username</span>
+                    <span style="color: red" ng-show="loginForm.username.$error.required">This field is required!</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Password <input type="password" name="password" ng-model="password" ng-maxlength="20" tabindex="2" required/>
+                    <span style="color: red" ng-show="loginForm.password.$error.required">This field is required!</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" ng-click="login()" value="Log In" tabindex="4" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
