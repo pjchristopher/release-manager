@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 // # Globbing
@@ -26,7 +27,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     // Project settings
-    ig: appConfig,
+    releasemanager: appConfig,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -64,6 +65,9 @@ module.exports = function (grunt) {
       }
     },
 
+    concat: {
+      dist: {}
+    },
     // The actual grunt server settings
     connect: {
       options: {
@@ -90,7 +94,7 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
-              connect.static(appConfreleasemanager.app)
+              connect.static(appConfig.app)
             ];
           }
         }
@@ -179,7 +183,7 @@ module.exports = function (grunt) {
         imagesDir: '<%= releasemanager.app %>/images',
         javascriptsDir: '<%= releasemanager.app %>',
         fontsDir: '<%= releasemanager.app %>/styles/fonts',
-        importPath: './bower_components',
+        importPath: '<%= releasemanager.app %>/bower_components',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
@@ -246,6 +250,29 @@ module.exports = function (grunt) {
         }
       }
     },
+
+    // The following *-min tasks will produce minified files in the dist folder
+    // By default, your `index.html`'s <!-- Usemin block --> will take care of
+    // minification. These next options are pre-configured if you do not wish
+    // to use the Usemin blocks.
+    cssmin: {
+       dist: {
+         files: {
+           '<%= releasemanager.dist %>/styles/app.css': [
+             '.tmp/styles/{,*/}*.css'
+           ]
+         }
+       }
+     },
+     uglify: {
+       dist: {
+         files: {
+           '<%= releasemanager.dist %>/app.js': [
+             '<%= releasemanager.dist %>/app.js'
+           ]
+         }
+       }
+     },
 
     htmlmin: {
       dist: {
