@@ -26,7 +26,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     // Project settings
-    ig: appConfig,
+    releaseManager: appConfig,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -35,18 +35,18 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= ig.app %>/{,*/}*.js'],
+        files: ['<%= releaseManager.app %>/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       compass: {
-        files: ['<%= ig.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= releaseManager.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer:server']
       },
       styles: {
-        files: ['<%= ig.app %>/styles/{,*/}*.css'],
+        files: ['<%= releaseManager.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
       gruntfile: {
@@ -57,9 +57,9 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= ig.app %>/{,*/}*.html',
+          '<%= releaseManager.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '<%= ig.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= releaseManager.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -98,7 +98,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
           open: true,
-          base: '<%= ig.dist %>'
+          base: '<%= releaseManager.dist %>'
         }
       }
     },
@@ -112,7 +112,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= ig.app %>/{,*/}*.js'
+          '<%= releaseManager.app %>/{,*/}*.js'
         ]
       }
     },
@@ -124,8 +124,8 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= ig.dist %>/{,*/}*',
-            '!<%= ig.dist %>/.git{,*/}*'
+            '<%= releaseManager.dist %>/{,*/}*',
+            '!<%= releaseManager.dist %>/.git{,*/}*'
           ]
         }]
       },
@@ -161,11 +161,11 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
-        src: ['<%= ig.app %>/index.html'],
+        src: ['<%= releaseManager.app %>/index.html'],
         ignorePath:  /\.\.\//
       },
       sass: {
-        src: ['<%= ig.app %>/styles/{,*/}*.{scss,sass}'],
+        src: ['<%= releaseManager.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
@@ -173,12 +173,12 @@ module.exports = function (grunt) {
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
-        sassDir: '<%= ig.app %>/styles',
+        sassDir: '<%= releaseManager.app %>/styles',
         cssDir: '.tmp/styles',
         generatedImagesDir: '.tmp/images/generated',
-        imagesDir: '<%= ig.app %>/images',
-        javascriptsDir: '<%= ig.app %>',
-        fontsDir: '<%= ig.app %>/styles/fonts',
+        imagesDir: '<%= releaseManager.app %>/images',
+        javascriptsDir: '<%= releaseManager.app %>',
+        fontsDir: '<%= releaseManager.app %>/styles/fonts',
         importPath: './bower_components',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
@@ -189,7 +189,7 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          generatedImagesDir: '<%= ig.dist %>/images/generated'
+          generatedImagesDir: '<%= releaseManager.dist %>/images/generated'
         }
       },
       server: {
@@ -203,10 +203,10 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
-          '<%= ig.dist %>/{,*/}*.js',
-          '<%= ig.dist %>/styles/{,*/}*.css',
-          '<%= ig.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= ig.dist %>/styles/fonts/*'
+          '<%= releaseManager.dist %>/{,*/}*.js',
+          '<%= releaseManager.dist %>/styles/{,*/}*.css',
+          '<%= releaseManager.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= releaseManager.dist %>/styles/fonts/*'
         ]
       }
     },
@@ -215,9 +215,9 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%= ig.app %>/index.html',
+      html: '<%= releaseManager.app %>/index.html',
       options: {
-        dest: '<%= ig.dist %>',
+        dest: '<%= releaseManager.dist %>',
         flow: {
           html: {
             steps: {
@@ -232,14 +232,14 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-      html: ['<%= ig.dist %>/{,*/}*.html'],
-      css: ['<%= ig.dist %>/styles/{,*/}*.css'],
-      js: ['<%= ig.dist %>/{,*/}*.js'],
+      html: ['<%= releaseManager.dist %>/{,*/}*.html'],
+      css: ['<%= releaseManager.dist %>/styles/{,*/}*.css'],
+      js: ['<%= releaseManager.dist %>/{,*/}*.js'],
       options: {
         assetsDirs: [
-          '<%= ig.dist %>',
-          '<%= ig.dist %>/images',
-          '<%= ig.dist %>/styles'
+          '<%= releaseManager.dist %>',
+          '<%= releaseManager.dist %>/images',
+          '<%= releaseManager.dist %>/styles'
         ],
         patterns: {
           js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
@@ -254,7 +254,7 @@ module.exports = function (grunt) {
     //cssmin: {
     //   dist: {
     //     files: {
-    //       '<%= ig.dist %>/styles/app.css': [
+    //       '<%= releaseManager.dist %>/styles/app.css': [
     //         '.tmp/styles/{,*/}*.css'
     //       ]
     //     }
@@ -263,8 +263,8 @@ module.exports = function (grunt) {
     // uglify: {
     //   dist: {
     //     files: {
-    //       '<%= ig.dist %>/app.js': [
-    //         '<%= ig.dist %>/app.js'
+    //       '<%= releaseManager.dist %>/app.js': [
+    //         '<%= releaseManager.dist %>/app.js'
     //       ]
     //     }
     //   }
@@ -284,9 +284,9 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= ig.dist %>',
+          cwd: '<%= releaseManager.dist %>',
           src: ['*.html'],
-          dest: '<%= ig.dist %>'
+          dest: '<%= releaseManager.dist %>'
         }]
       }
     },
@@ -310,8 +310,8 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= ig.app %>',
-          dest: '<%= ig.dist %>',
+          cwd: '<%= releaseManager.app %>',
+          dest: '<%= releaseManager.dist %>',
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
@@ -322,18 +322,18 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.tmp/images',
-          dest: '<%= ig.dist %>/images',
+          dest: '<%= releaseManager.dist %>/images',
           src: ['generated/*']
         }, {
           expand: true,
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
-          dest: '<%= ig.dist %>'
+          dest: '<%= releaseManager.dist %>'
         }]
       },
       styles: {
         expand: true,
-        cwd: '<%= ig.app %>/styles',
+        cwd: '<%= releaseManager.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
       }
