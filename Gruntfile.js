@@ -1,5 +1,5 @@
-'use strict';
-
+/*jslint node: true */
+"use strict";
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -7,7 +7,6 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
