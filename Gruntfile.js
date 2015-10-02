@@ -183,7 +183,7 @@ module.exports = function (grunt) {
         imagesDir: '<%= releasemanager.app %>/images',
         javascriptsDir: '<%= releasemanager.app %>',
         fontsDir: '<%= releasemanager.app %>/styles/fonts',
-        importPath: '<%= releasemanager.app %>/bower_components',
+        importPath: './bower_components',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
