@@ -1,5 +1,5 @@
-/*jslint node: true */
-"use strict";
+'use strict';
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -7,6 +7,7 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -25,7 +26,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     // Project settings
-    releaseManager: appConfig,
+    ig: appConfig,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -34,18 +35,18 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= releaseManager.app %>/{,*/}*.js'],
+        files: ['<%= releasemanager.app %>/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       compass: {
-        files: ['<%= releaseManager.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= releasemanager.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer:server']
       },
       styles: {
-        files: ['<%= releaseManager.app %>/styles/{,*/}*.css'],
+        files: ['<%= releasemanager.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
       gruntfile: {
@@ -56,9 +57,9 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= releaseManager.app %>/{,*/}*.html',
+          '<%= releasemanager.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '<%= releaseManager.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= releasemanager.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -89,7 +90,7 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
-              connect.static(appConfig.app)
+              connect.static(appConfreleasemanager.app)
             ];
           }
         }
@@ -97,7 +98,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
           open: true,
-          base: '<%= releaseManager.dist %>'
+          base: '<%= releasemanager.dist %>'
         }
       }
     },
@@ -111,7 +112,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= releaseManager.app %>/{,*/}*.js'
+          '<%= releasemanager.app %>/{,*/}*.js'
         ]
       }
     },
@@ -123,8 +124,8 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= releaseManager.dist %>/{,*/}*',
-            '!<%= releaseManager.dist %>/.git{,*/}*'
+            '<%= releasemanager.dist %>/{,*/}*',
+            '!<%= releasemanager.dist %>/.git{,*/}*'
           ]
         }]
       },
@@ -160,11 +161,11 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
-        src: ['<%= releaseManager.app %>/index.html'],
+        src: ['<%= releasemanager.app %>/index.html'],
         ignorePath:  /\.\.\//
       },
       sass: {
-        src: ['<%= releaseManager.app %>/styles/{,*/}*.{scss,sass}'],
+        src: ['<%= releasemanager.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
@@ -172,12 +173,12 @@ module.exports = function (grunt) {
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
-        sassDir: '<%= releaseManager.app %>/styles',
+        sassDir: '<%= releasemanager.app %>/styles',
         cssDir: '.tmp/styles',
         generatedImagesDir: '.tmp/images/generated',
-        imagesDir: '<%= releaseManager.app %>/images',
-        javascriptsDir: '<%= releaseManager.app %>',
-        fontsDir: '<%= releaseManager.app %>/styles/fonts',
+        imagesDir: '<%= releasemanager.app %>/images',
+        javascriptsDir: '<%= releasemanager.app %>',
+        fontsDir: '<%= releasemanager.app %>/styles/fonts',
         importPath: './bower_components',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
@@ -188,7 +189,7 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          generatedImagesDir: '<%= releaseManager.dist %>/images/generated'
+          generatedImagesDir: '<%= releasemanager.dist %>/images/generated'
         }
       },
       server: {
@@ -202,10 +203,10 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
-          '<%= releaseManager.dist %>/{,*/}*.js',
-          '<%= releaseManager.dist %>/styles/{,*/}*.css',
-          '<%= releaseManager.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= releaseManager.dist %>/styles/fonts/*'
+          '<%= releasemanager.dist %>/{,*/}*.js',
+          '<%= releasemanager.dist %>/styles/{,*/}*.css',
+          '<%= releasemanager.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= releasemanager.dist %>/styles/fonts/*'
         ]
       }
     },
@@ -214,9 +215,9 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%= releaseManager.app %>/index.html',
+      html: '<%= releasemanager.app %>/index.html',
       options: {
-        dest: '<%= releaseManager.dist %>',
+        dest: '<%= releasemanager.dist %>',
         flow: {
           html: {
             steps: {
@@ -231,47 +232,20 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-      html: ['<%= releaseManager.dist %>/{,*/}*.html'],
-      css: ['<%= releaseManager.dist %>/styles/{,*/}*.css'],
-      js: ['<%= releaseManager.dist %>/{,*/}*.js'],
+      html: ['<%= releasemanager.dist %>/{,*/}*.html'],
+      css: ['<%= releasemanager.dist %>/styles/{,*/}*.css'],
+      js: ['<%= releasemanager.dist %>/{,*/}*.js'],
       options: {
         assetsDirs: [
-          '<%= releaseManager.dist %>',
-          '<%= releaseManager.dist %>/images',
-          '<%= releaseManager.dist %>/styles'
+          '<%= releasemanager.dist %>',
+          '<%= releasemanager.dist %>/images',
+          '<%= releasemanager.dist %>/styles'
         ],
         patterns: {
           js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
         }
       }
     },
-
-    // The following *-min tasks will produce minified files in the dist folder
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    //cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= releaseManager.dist %>/styles/app.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= releaseManager.dist %>/app.js': [
-    //         '<%= releaseManager.dist %>/app.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    //
-    //concat: {
-    //   dist: {}
-    //},
 
     htmlmin: {
       dist: {
@@ -283,9 +257,9 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= releaseManager.dist %>',
+          cwd: '<%= releasemanager.dist %>',
           src: ['*.html'],
-          dest: '<%= releaseManager.dist %>'
+          dest: '<%= releasemanager.dist %>'
         }]
       }
     },
@@ -309,8 +283,8 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= releaseManager.app %>',
-          dest: '<%= releaseManager.dist %>',
+          cwd: '<%= releasemanager.app %>',
+          dest: '<%= releasemanager.dist %>',
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
@@ -321,18 +295,18 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.tmp/images',
-          dest: '<%= releaseManager.dist %>/images',
+          dest: '<%= releasemanager.dist %>/images',
           src: ['generated/*']
         }, {
           expand: true,
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
-          dest: '<%= releaseManager.dist %>'
+          dest: '<%= releasemanager.dist %>'
         }]
       },
       styles: {
         expand: true,
-        cwd: '<%= releaseManager.app %>/styles',
+        cwd: '<%= releasemanager.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
       }
